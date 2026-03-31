@@ -48,4 +48,14 @@ class User extends Authenticatable
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+    public function certificates()
+    {
+        return $this->hasMany(\App\Models\Certificate::class);
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany(\App\Models\Enrollment::class);
+    }
 }

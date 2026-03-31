@@ -12,14 +12,38 @@
             </a>
 
             <flux:navlist variant="outline">
-                <flux:navlist.group heading="Platform" class="grid">
-                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>Dashboard</flux:navlist.item>
+                <flux:navlist.group heading="Principal" class="grid">
+                    <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
+                        Dashboard
+                    </flux:navlist.item>
+                    <flux:navlist.item icon="book-open-text" :href="route('cursos.index')" :current="request()->routeIs('cursos.*')" wire:navigate>
+                        Catálogo de cursos
+                    </flux:navlist.item>
                 </flux:navlist.group>
+
+                @if(auth()->user()->hasAnyRole(['admin', 'editor']))
+                    <flux:navlist.group heading="Contenido" class="grid">
+                        <flux:navlist.item icon="document-text" :href="route('editor.courses.index')" :current="request()->routeIs('editor.*')" wire:navigate>
+                            Gestión de contenido
+                        </flux:navlist.item>
+                    </flux:navlist.group>
+                @endif
+
+                @if(auth()->user()->hasRole('admin'))
+                    <flux:navlist.group heading="Administración" class="grid">
+                        <flux:navlist.item icon="users" :href="route('admin.users.index')" :current="request()->routeIs('admin.users.*')" wire:navigate>
+                            Usuarios
+                        </flux:navlist.item>
+                        <flux:navlist.item icon="academic-cap" :href="route('admin.courses.index')" :current="request()->routeIs('admin.courses.*')" wire:navigate>
+                            Cursos (admin)
+                        </flux:navlist.item>
+                    </flux:navlist.group>
+                @endif
             </flux:navlist>
 
             <flux:spacer />
 
-            <flux:navlist variant="outline">
+            {{-- <flux:navlist variant="outline">
                 <flux:navlist.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
                     Repository
                 </flux:navlist.item>
@@ -27,7 +51,7 @@
                 <flux:navlist.item icon="book-open-text" href="https://laravel.com/docs/starter-kits" target="_blank">
                     Documentation
                 </flux:navlist.item>
-            </flux:navlist>
+            </flux:navlist> --}}
 
             <!-- Desktop User Menu -->
             <flux:dropdown position="bottom" align="start">
