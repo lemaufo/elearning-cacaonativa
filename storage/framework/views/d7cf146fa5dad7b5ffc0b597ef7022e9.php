@@ -432,7 +432,7 @@
 <?php endif; ?>
 <?php $component->withAttributes(['href' => '/settings/profile','icon' => 'cog','wire:navigate' => true]); ?>
 <?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
-Settings <?php echo $__env->renderComponent(); ?>
+Ajustes <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal5027d420cfeeb03dd925cfc08ae44851)): ?>
 <?php $attributes = $__attributesOriginal5027d420cfeeb03dd925cfc08ae44851; ?>
@@ -490,7 +490,7 @@ Settings <?php echo $__env->renderComponent(); ?>
 <?php $component->withAttributes(['as' => 'button','type' => 'submit','icon' => 'arrow-right-start-on-rectangle','class' => 'w-full']); ?>
 <?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
 
-                            <?php echo e(__('Log Out')); ?>
+                            <?php echo e(__('Cerrar sesión')); ?>
 
                          <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
@@ -726,7 +726,7 @@ Settings <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php $component->withAttributes(['href' => '/settings/profile','icon' => 'cog','wire:navigate' => true]); ?>
 <?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
-Settings <?php echo $__env->renderComponent(); ?>
+Ajustes <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal5027d420cfeeb03dd925cfc08ae44851)): ?>
 <?php $attributes = $__attributesOriginal5027d420cfeeb03dd925cfc08ae44851; ?>
@@ -784,7 +784,7 @@ Settings <?php echo $__env->renderComponent(); ?>
 <?php $component->withAttributes(['as' => 'button','type' => 'submit','icon' => 'arrow-right-start-on-rectangle','class' => 'w-full']); ?>
 <?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
 
-                            <?php echo e(__('Log Out')); ?>
+                            <?php echo e(__('Cerrar sesión')); ?>
 
                          <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>

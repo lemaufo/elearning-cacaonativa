@@ -4,7 +4,7 @@
         {{-- Back --}}
         <a href="{{ route('cursos.index') }}"
            class="inline-flex items-center gap-1.5 text-sm text-zinc-500 dark:text-zinc-400 hover:text-zinc-700 dark:hover:text-zinc-200 transition-colors">
-            <flux:icon.chevron-left class="w-4 h-4" />
+            <flux:icon.arrow-left class="w-4 h-4" />
             Volver al catálogo
         </a>
 
@@ -29,7 +29,7 @@
                        class="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium
                               bg-green-50 dark:bg-green-900/30 text-green-700 dark:text-green-400
                               border border-green-200 dark:border-green-800 hover:bg-green-100 transition-colors">
-                        <flux:icon.award class="w-4 h-4" />
+                        <flux:icon.check-circle class="w-4 h-4" />
                         Descargar certificado
                     </a>
                 @endif
@@ -130,7 +130,7 @@
                                            target="_blank"
                                            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm
                                                   bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors">
-                                            <flux:icon.file-text class="w-4 h-4" />
+                                            <flux:icon.document class="w-4 h-4" />
                                             Abrir PDF
                                         </a>
                                     @elseif($lesson->type === 'image' && $lesson->content_url)
