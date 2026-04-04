@@ -57,6 +57,13 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->name('questions.destroy');
     Route::post('quizzes/{quiz}/unlock/{userId}', [AdminQuizController::class, 'unlockAttempt'])
         ->name('quizzes.unlock');
+    
+        Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])
+    ->name('dashboard');
+Route::get('reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])
+    ->name('reports.index');
+Route::get('reports/export', [\App\Http\Controllers\Admin\ReportController::class, 'export'])
+    ->name('reports.export');
 });
 
 require __DIR__.'/auth.php';

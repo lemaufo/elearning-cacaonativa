@@ -37,6 +37,12 @@
                         <flux:navlist.item icon="academic-cap" :href="route('admin.courses.index')" :current="request()->routeIs('admin.courses.*')" wire:navigate>
                             Cursos (admin)
                         </flux:navlist.item>
+                        <flux:navlist.item icon="chart-bar" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>
+                            Dashboard ejecutivo
+                        </flux:navlist.item>
+                        <flux:navlist.item icon="document-chart-bar" :href="route('admin.reports.index')" :current="request()->routeIs('admin.reports.*')" wire:navigate>
+                            Reportes
+                        </flux:navlist.item>
                     </flux:navlist.group>
                 @endif
             </flux:navlist>
