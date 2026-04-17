@@ -42,7 +42,13 @@ class QuizController extends Controller
                 ->with('error', 'Has agotado tus intentos. Contacta al administrador para desbloquear.');
         }
 
-        $questions = $quiz->questions()->with('answers')->get();
+        $totalQuestions = $quiz->questions()->count();
+        $questionsToShow = min($totalQuestions, $quiz->questions_per_exam ?? $totalQuestions);
+        $questions = $quiz->questions()
+            ->with('answers')
+            ->inRandomOrder()
+            ->take($questionsToShow)
+            ->get();
 
         return view('colaborador.quiz.show', compact(
             'course', 'quiz', 'questions', 'attempts', 'lastAttempt', 'isBlocked'

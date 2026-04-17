@@ -27,6 +27,8 @@ Route::middleware(['auth'])->group(function () {
 // Colaborador
 Route::middleware(['auth'])->prefix('cursos')->name('cursos.')->group(function () {
     Route::get('/', [ColabCourseController::class, 'index'])->name('index');
+    Route::get('/mis-certificados', [ColabCourseController::class, 'certificates'])
+        ->name('certificates');
     Route::get('/{course}', [ColabCourseController::class, 'show'])->name('show');
     Route::post('/{course}/enroll', [ColabCourseController::class, 'enroll'])->name('enroll');
     Route::post('/{course}/lessons/{lesson}/complete', [ColabCourseController::class, 'completeLesson'])
@@ -58,12 +60,16 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::post('quizzes/{quiz}/unlock/{userId}', [AdminQuizController::class, 'unlockAttempt'])
         ->name('quizzes.unlock');
     
-        Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])
-    ->name('dashboard');
-Route::get('reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])
-    ->name('reports.index');
-Route::get('reports/export', [\App\Http\Controllers\Admin\ReportController::class, 'export'])
-    ->name('reports.export');
+    Route::get('dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])
+        ->name('dashboard');
+    Route::get('reports', [\App\Http\Controllers\Admin\ReportController::class, 'index'])
+        ->name('reports.index');
+    Route::get('reports/export', [\App\Http\Controllers\Admin\ReportController::class, 'export'])
+        ->name('reports.export');
+    Route::get('certificates/verify', [\App\Http\Controllers\Admin\CertificateController::class, 'verify'])
+        ->name('certificates.verify');
+    Route::post('certificates/verify', [\App\Http\Controllers\Admin\CertificateController::class, 'check'])
+        ->name('certificates.check');
 });
 
 require __DIR__.'/auth.php';

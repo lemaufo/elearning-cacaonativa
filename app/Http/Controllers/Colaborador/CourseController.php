@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Colaborador;
 
 use App\Http\Controllers\Controller;
 use App\Models\Course;
+use App\Models\Certificate;
 use App\Models\Enrollment;
 use App\Models\LessonProgress;
 use Illuminate\Http\Request;
@@ -26,14 +27,21 @@ class CourseController extends Controller
                 $completedLessons = 0;
 
                 if ($enrollment && $course->lessons_count > 0) {
+                    // Si está aprobado, siempre 100%
+                    if ($enrollment->status === 'approved') {
+                        $course->progress_percent = 100;
+                        $course->enrollment = $enrollment;
+                        return $course;
+                    }
+
                     $completedLessons = LessonProgress::whereIn('lesson_id', $course->lessons->pluck('id'))
                         ->where('user_id', $user->id)
                         ->where('completed', true)
                         ->count();
                 }
 
-                $course->enrollment        = $enrollment;
-                $course->progress_percent  = $course->lessons_count > 0
+                $course->enrollment       = $enrollment;
+                $course->progress_percent = $course->lessons_count > 0
                     ? round(($completedLessons / $course->lessons_count) * 100)
                     : 0;
 
@@ -47,23 +55,33 @@ class CourseController extends Controller
     {
         abort_if($course->status !== 'published', 404);
 
-        $user     = Auth::user();
-        $lessons  = $course->lessons()->orderBy('order')->get();
+        $user       = Auth::user();
+        $lessons    = $course->lessons()->orderBy('order')->get();
         $enrollment = Enrollment::where('user_id', $user->id)
             ->where('course_id', $course->id)
             ->first();
 
-        $completedLessons = LessonProgress::whereIn('lesson_id', $lessons->pluck('id'))
-            ->where('user_id', $user->id)
-            ->where('completed', true)
-            ->pluck('lesson_id')
-            ->toArray();
+        $completedLessons = [];
+        $progress = 0;
 
-        $progress = $lessons->count() > 0
-            ? round((count($completedLessons) / $lessons->count()) * 100)
-            : 0;
+        if ($lessons->count() > 0) {
+            $completedLessons = LessonProgress::whereIn('lesson_id', $lessons->pluck('id'))
+                ->where('user_id', $user->id)
+                ->where('completed', true)
+                ->pluck('lesson_id')
+                ->toArray();
 
-        $certificate = $user->certificates()->where('course_id', $course->id)->first();
+            // Si el curso está aprobado, forzar 100%
+            if ($enrollment && $enrollment->status === 'approved') {
+                $progress = 100;
+            } else {
+                $progress = round((count($completedLessons) / $lessons->count()) * 100);
+            }
+        }
+
+        $certificate = Certificate::where('user_id', $user->id)
+            ->where('course_id', $course->id)
+            ->first();
 
         return view('colaborador.courses.show', compact(
             'course', 'lessons', 'enrollment', 'completedLessons', 'progress', 'certificate'
@@ -114,5 +132,15 @@ class CourseController extends Controller
         }
 
         return back()->with('success', 'Lección marcada como completada.');
+    }
+
+    public function certificates()
+    {
+        $certificates = Certificate::where('user_id', Auth::id())
+            ->with('course')
+            ->latest('issued_at')
+            ->get();
+
+        return view('colaborador.certificates', compact('certificates'));
     }
 }

@@ -37,6 +37,7 @@ class QuizController extends Controller
             'title'        => $request->title,
             'min_score'    => $request->min_score,
             'max_attempts' => $request->max_attempts,
+            'questions_per_exam' => $request->questions_per_exam ?: null,
         ]);
 
         return back()->with('success', 'Evaluación creada.');

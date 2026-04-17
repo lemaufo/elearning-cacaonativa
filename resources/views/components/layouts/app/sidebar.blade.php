@@ -19,6 +19,9 @@
                     <flux:navlist.item icon="book-open-text" :href="route('cursos.index')" :current="request()->routeIs('cursos.*')" wire:navigate>
                         Catálogo de cursos
                     </flux:navlist.item>
+                    <flux:navlist.item icon="document-check" :href="route('cursos.certificates')" :current="request()->routeIs('cursos.certificates')" wire:navigate>
+                        Mis certificados
+                    </flux:navlist.item>
                 </flux:navlist.group>
 
                 @if(auth()->user()->hasAnyRole(['admin', 'editor']))
@@ -36,6 +39,9 @@
                         </flux:navlist.item>
                         <flux:navlist.item icon="academic-cap" :href="route('admin.courses.index')" :current="request()->routeIs('admin.courses.*')" wire:navigate>
                             Cursos (admin)
+                        </flux:navlist.item>
+                        <flux:navlist.item icon="shield-check" :href="route('admin.certificates.verify')" :current="request()->routeIs('admin.certificates.*')" wire:navigate>
+                            Validar certificado
                         </flux:navlist.item>
                         <flux:navlist.item icon="chart-bar" :href="route('admin.dashboard')" :current="request()->routeIs('admin.dashboard')" wire:navigate>
                             Dashboard ejecutivo

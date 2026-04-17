@@ -23,7 +23,7 @@
                   class="space-y-4">
                 @csrf
 
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
                     <flux:input name="title" label="Título de la evaluación"
                         value="{{ old('title', $quiz?->title ?? 'Evaluación Final') }}" required />
 
@@ -34,6 +34,11 @@
                     <flux:input name="max_attempts" label="Máximo de intentos"
                         type="number" min="1" max="10"
                         value="{{ old('max_attempts', $quiz?->max_attempts ?? 3) }}" required />
+
+                    <flux:input name="questions_per_exam" label="Preguntas por examen"
+                        type="number" min="1"
+                        value="{{ old('questions_per_exam', $quiz?->questions_per_exam) }}"
+                        placeholder="Todas" />
                 </div>
 
                 <flux:button type="submit" variant="primary">
