@@ -63,26 +63,20 @@ Accede a todos los cursos disponibles <?php echo $__env->renderComponent(); ?>
         
         <div x-data="{ filtro: 'todos' }" class="space-y-4">
             <div class="flex flex-wrap gap-2">
-                <button @click="filtro = 'todos'"
-                    :class="filtro === 'todos' ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900' : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'"
-                    class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
-                    Todos
-                </button>
-                <button @click="filtro = 'no_iniciado'"
-                    :class="filtro === 'no_iniciado' ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900' : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'"
-                    class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
-                    No iniciado
-                </button>
-                <button @click="filtro = 'en_progreso'"
-                    :class="filtro === 'en_progreso' ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900' : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'"
-                    class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
-                    En progreso
-                </button>
-                <button @click="filtro = 'aprobado'"
-                    :class="filtro === 'aprobado' ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900' : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'"
-                    class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
-                    Aprobado
-                </button>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::openLoop(); ?><?php endif; ?><?php $__currentLoopData = [
+                    ['key' => 'todos',       'label' => 'Todos'],
+                    ['key' => 'no_iniciado', 'label' => 'No iniciado'],
+                    ['key' => 'en_progreso', 'label' => 'En progreso'],
+                    ['key' => 'aprobado',    'label' => 'Aprobado'],
+                ]; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $f): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::startLoopIteration(); ?><?php endif; ?>
+                    <button @click="filtro = '<?php echo e($f['key']); ?>'"
+                            :style="filtro === '<?php echo e($f['key']); ?>' ? 'background-color: #5C271A; color: white; border-color: #5C271A' : 'background: transparent'"
+                            :class="filtro !== '<?php echo e($f['key']); ?>' ? 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700' : 'border'"
+                            class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
+                        <?php echo e($f['label']); ?>
+
+                    </button>
+                <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
             </div>
 
             
@@ -197,8 +191,8 @@ Accede a todos los cursos disponibles <?php echo $__env->renderComponent(); ?>
                                             <span><?php echo e($course->progress_percent); ?>%</span>
                                         </div>
                                         <div class="h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                                            <div class="h-full rounded-full transition-all duration-300
-                                                <?php echo e($status === 'approved' ? 'bg-green-500' : 'bg-blue-500'); ?>"
+                                            <div class="h-full rounded-full transition-all duration-300"
+                                                style="<?php echo e($status === 'approved' ? 'background-color: #1D483B' : 'background-color: #5C271A'); ?>"
                                                 style="width: <?php echo e($course->progress_percent); ?>%">
                                             </div>
                                         </div>
@@ -214,9 +208,10 @@ Accede a todos los cursos disponibles <?php echo $__env->renderComponent(); ?>
                                 <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
 
                                 <a href="<?php echo e(route('cursos.show', $course)); ?>"
-                                   class="block w-full text-center py-2 px-4 rounded-xl text-sm font-medium transition-colors
-                                          bg-zinc-900 dark:bg-white text-white dark:text-zinc-900
-                                          hover:bg-zinc-700 dark:hover:bg-zinc-100">
+                                   class="block w-full text-center py-2 px-4 rounded-xl text-sm font-medium transition-colors text-white"
+                                    style="background-color: #5C271A"
+                                    onmouseover="this.style.backgroundColor='#3D1810'"
+                                    onmouseout="this.style.backgroundColor='#5C271A'">
                                     <?php echo e($course->enrollment ? 'Continuar' : 'Ver curso'); ?>
 
                                 </a>

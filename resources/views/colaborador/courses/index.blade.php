@@ -12,26 +12,19 @@
         {{-- Filtros --}}
         <div x-data="{ filtro: 'todos' }" class="space-y-4">
             <div class="flex flex-wrap gap-2">
-                <button @click="filtro = 'todos'"
-                    :class="filtro === 'todos' ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900' : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'"
-                    class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
-                    Todos
-                </button>
-                <button @click="filtro = 'no_iniciado'"
-                    :class="filtro === 'no_iniciado' ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900' : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'"
-                    class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
-                    No iniciado
-                </button>
-                <button @click="filtro = 'en_progreso'"
-                    :class="filtro === 'en_progreso' ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900' : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'"
-                    class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
-                    En progreso
-                </button>
-                <button @click="filtro = 'aprobado'"
-                    :class="filtro === 'aprobado' ? 'bg-zinc-900 dark:bg-white text-white dark:text-zinc-900' : 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700'"
-                    class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
-                    Aprobado
-                </button>
+                @foreach([
+                    ['key' => 'todos',       'label' => 'Todos'],
+                    ['key' => 'no_iniciado', 'label' => 'No iniciado'],
+                    ['key' => 'en_progreso', 'label' => 'En progreso'],
+                    ['key' => 'aprobado',    'label' => 'Aprobado'],
+                ] as $f)
+                    <button @click="filtro = '{{ $f['key'] }}'"
+                            :style="filtro === '{{ $f['key'] }}' ? 'background-color: #5C271A; color: white; border-color: #5C271A' : 'background: transparent'"
+                            :class="filtro !== '{{ $f['key'] }}' ? 'bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 border border-zinc-200 dark:border-zinc-700' : 'border'"
+                            class="px-4 py-1.5 rounded-full text-sm font-medium transition-colors">
+                        {{ $f['label'] }}
+                    </button>
+                @endforeach
             </div>
 
             {{-- Grid de cursos --}}
@@ -104,8 +97,8 @@
                                             <span>{{ $course->progress_percent }}%</span>
                                         </div>
                                         <div class="h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
-                                            <div class="h-full rounded-full transition-all duration-300
-                                                {{ $status === 'approved' ? 'bg-green-500' : 'bg-blue-500' }}"
+                                            <div class="h-full rounded-full transition-all duration-300"
+                                                style="{{ $status === 'approved' ? 'background-color: #1D483B' : 'background-color: #5C271A' }}"
                                                 style="width: {{ $course->progress_percent }}%">
                                             </div>
                                         </div>
@@ -120,9 +113,10 @@
                                 @endif
 
                                 <a href="{{ route('cursos.show', $course) }}"
-                                   class="block w-full text-center py-2 px-4 rounded-xl text-sm font-medium transition-colors
-                                          bg-zinc-900 dark:bg-white text-white dark:text-zinc-900
-                                          hover:bg-zinc-700 dark:hover:bg-zinc-100">
+                                   class="block w-full text-center py-2 px-4 rounded-xl text-sm font-medium transition-colors text-white"
+                                    style="background-color: #5C271A"
+                                    onmouseover="this.style.backgroundColor='#3D1810'"
+                                    onmouseout="this.style.backgroundColor='#5C271A'">
                                     {{ $course->enrollment ? 'Continuar' : 'Ver curso' }}
                                 </a>
                             </div>

@@ -64,7 +64,19 @@ class CourseController extends Controller
             'title'       => 'required|string|max:255',
             'description' => 'nullable|string',
             'area'        => 'nullable|string|max:100',
+            'thumbnail'   => 'nullable|image|max:2048',
         ]);
+
+        if ($request->hasFile('thumbnail')) {
+            // Eliminar portada anterior si existe
+            if ($course->thumbnail) {
+                \Illuminate\Support\Facades\Storage::disk('public')->delete($course->thumbnail);
+            }
+            $validated['thumbnail'] = $request->file('thumbnail')
+                ->store('thumbnails', 'public');
+        } else {
+            unset($validated['thumbnail']);
+        }
 
         $course->update($validated);
 

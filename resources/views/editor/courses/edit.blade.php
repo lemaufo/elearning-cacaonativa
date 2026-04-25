@@ -33,6 +33,7 @@
         </div>
 
         <form method="POST" action="{{ route('editor.courses.update', $course) }}"
+              enctype="multipart/form-data"
               x-data="lessonManager(@js($lessons))"
               class="space-y-6">
             @csrf
@@ -51,6 +52,32 @@
                 </div>
 
                 <flux:input name="area" label="Área responsable" value="{{ old('area', $course->area) }}" />
+
+                {{-- Portada del curso --}}
+                <div>
+                    <label class="block text-sm font-medium mb-1.5">Imagen de portada</label>
+
+                    @if($course->thumbnail)
+                        <div class="mb-3">
+                            <img src="{{ asset('storage/' . $course->thumbnail) }}"
+                                alt="Portada actual"
+                                class="w-full max-w-xs h-40 object-cover rounded-xl border border-zinc-200 dark:border-zinc-700">
+                            <p class="text-xs text-zinc-500 mt-1">Portada actual — sube una nueva para reemplazarla</p>
+                        </div>
+                    @endif
+
+                    <input type="file"
+                        name="thumbnail"
+                        accept="image/*"
+                        class="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700
+                                bg-zinc-50 dark:bg-zinc-800 text-sm
+                                file:mr-3 file:py-1 file:px-3 file:rounded-lg file:border-0
+                                file:text-sm file:font-medium file:cursor-pointer
+                                file:text-white"
+                        style="--file-bg: #5C271A"
+                        x-ref="thumbnailInput">
+                    <p class="text-xs text-zinc-400 mt-1">JPG, PNG o WebP — máximo 2MB. Recomendado: 1280x720px</p>
+                </div>
             </div>
 
             {{-- Lecciones --}}
