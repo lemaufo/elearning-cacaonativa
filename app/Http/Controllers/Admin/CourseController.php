@@ -56,7 +56,7 @@ class CourseController extends Controller
     {
         abort_if(!Auth::user()->hasRole('admin'), 403);
         $lessons = $course->lessons()->orderBy('order')->get();
-        return view('admin.courses.edit', compact('course', 'lessons'));
+        return view('editor.courses.edit', compact('course', 'lessons'));
     }
 
     public function update(Request $request, Course $course)
