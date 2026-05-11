@@ -253,13 +253,13 @@
 <body>
 <div class="page">
 
-    {{-- Banda superior con logo --}}
+    
     <div class="header-band">
-        <img src="data:image/png;base64,{{ $logoBase64 }}" alt="Cacao Nativa">
+        <img src="data:image/png;base64,<?php echo e($logoBase64); ?>" alt="Cacao Nativa">
         <p class="header-band-sub">Plataforma E-Learning Corporativa</p>
     </div>
 
-    {{-- Bordes decorativos --}}
+    
     <div class="border-outer"></div>
     <div class="border-inner"></div>
     <div class="corner c-tl"></div>
@@ -267,25 +267,25 @@
     <div class="corner c-bl"></div>
     <div class="corner c-br"></div>
 
-    {{-- Contenido --}}
+    
     <div class="content">
         <h1 class="title">Reconocimiento</h1>
         <div class="divider-ornament">— ✦ —</div>
         <hr class="divider-line">
 
         <p class="granted-to">Otorgado a</p>
-        <p class="name">{{ $certificate->user->name }}</p>
+        <p class="name"><?php echo e($certificate->user->name); ?></p>
 
         <p class="description">Por haber completado satisfactoriamente el curso:</p>
-        <p class="course-name">{{ $certificate->course->title }}</p>
+        <p class="course-name"><?php echo e($certificate->course->title); ?></p>
 
-        @if($certificate->course->area)
-            <p class="meta">Área: <strong>{{ $certificate->course->area }}</strong></p>
-        @endif
-        <p class="meta">Calificación: <strong>{{ $certificate->score }}%</strong> &nbsp;|&nbsp; {{ $certificate->issued_at->translatedFormat('F Y') }}</p>
+        <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($certificate->course->area): ?>
+            <p class="meta">Área: <strong><?php echo e($certificate->course->area); ?></strong></p>
+        <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
+        <p class="meta">Calificación: <strong><?php echo e($certificate->score); ?>%</strong> &nbsp;|&nbsp; <?php echo e($certificate->issued_at->translatedFormat('F Y')); ?></p>
     </div>
 
-    {{-- Firmas --}}
+    
     <div class="signatures">
         <div class="sig-col">
             <div class="sig-line">
@@ -310,12 +310,12 @@
         </div>
     </div>
 
-    {{-- UUID --}}
+    
     <div class="uuid-section">
         <p class="uuid-label">ID de verificación</p>
-        <p class="uuid-value">{{ $certificate->uuid }}</p>
+        <p class="uuid-value"><?php echo e($certificate->uuid); ?></p>
     </div>
 
 </div>
 </body>
-</html>
+</html><?php /**PATH C:\Users\venta\Documents\DESARROLLOS\elerarning-cacaonativa\resources\views/pdf/certificate.blade.php ENDPATH**/ ?>

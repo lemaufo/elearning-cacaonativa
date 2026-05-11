@@ -135,11 +135,17 @@ class QuizController extends Controller
             ->with(['course', 'user'])
             ->firstOrFail();
 
+        $logoBase64 = base64_encode(
+            file_get_contents(public_path('images/Logo1.png'))
+        );
+
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('pdf.certificate', compact('certificate'));
+        $pdf->loadView('pdf.certificate', compact('certificate', 'logoBase64'));
         $pdf->setPaper('letter', 'landscape');
 
-        return $pdf->download("certificado-{$course->title}-{$user->name}.pdf");
+        return $pdf->download(
+            'certificado-' . str($course->title)->slug() . '-' . str($user->name)->slug() . '.pdf'
+        );
     }
 
     private function generateCertificate($user, $course, $attempt, $score)
