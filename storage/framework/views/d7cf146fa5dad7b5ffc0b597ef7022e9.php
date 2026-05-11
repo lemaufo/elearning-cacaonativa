@@ -41,16 +41,73 @@
 <?php endif; ?>
 
             
-            <a href="<?php echo e(route('dashboard')); ?>" class="flex items-center gap-3 px-2 py-1" wire:navigate>
-                <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-                     style="background-color: #5C271A">
-                    <span class="text-white font-bold text-sm">CN</span>
-                </div>
-                <div>
-                    <p class="font-semibold text-sm leading-tight">Cacao Nativa</p>
-                    <p class="text-xs text-zinc-500 dark:text-zinc-400">E-Learning</p>
-                </div>
-            </a>
+            
+            <?php if (isset($component)) { $__componentOriginal837232b594bf97def5cd04bcaa1b6bb0 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal837232b594bf97def5cd04bcaa1b6bb0 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'e60dd9d2c3a62d619c9acb38f20d5aa5::sidebar.header','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('flux::sidebar.header'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
+
+                <?php if (isset($component)) { $__componentOriginal7b17d80ff7900603fe9e5f0b453cc7c3 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal7b17d80ff7900603fe9e5f0b453cc7c3 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.app-logo','data' => ['sidebar' => true,'href' => ''.e(route('dashboard')).'','wire:navigate' => true]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('app-logo'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['sidebar' => true,'href' => ''.e(route('dashboard')).'','wire:navigate' => true]); ?>
+<?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
+
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal7b17d80ff7900603fe9e5f0b453cc7c3)): ?>
+<?php $attributes = $__attributesOriginal7b17d80ff7900603fe9e5f0b453cc7c3; ?>
+<?php unset($__attributesOriginal7b17d80ff7900603fe9e5f0b453cc7c3); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal7b17d80ff7900603fe9e5f0b453cc7c3)): ?>
+<?php $component = $__componentOriginal7b17d80ff7900603fe9e5f0b453cc7c3; ?>
+<?php unset($__componentOriginal7b17d80ff7900603fe9e5f0b453cc7c3); ?>
+<?php endif; ?>
+                <?php if (isset($component)) { $__componentOriginal27b151307b59a43acdad47db3fb6fbd0 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal27b151307b59a43acdad47db3fb6fbd0 = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'e60dd9d2c3a62d619c9acb38f20d5aa5::sidebar.collapse','data' => ['class' => 'lg:hidden']] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('flux::sidebar.collapse'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'lg:hidden']); ?>
+<?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
+
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal27b151307b59a43acdad47db3fb6fbd0)): ?>
+<?php $attributes = $__attributesOriginal27b151307b59a43acdad47db3fb6fbd0; ?>
+<?php unset($__attributesOriginal27b151307b59a43acdad47db3fb6fbd0); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal27b151307b59a43acdad47db3fb6fbd0)): ?>
+<?php $component = $__componentOriginal27b151307b59a43acdad47db3fb6fbd0; ?>
+<?php unset($__componentOriginal27b151307b59a43acdad47db3fb6fbd0); ?>
+<?php endif; ?>
+             <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal837232b594bf97def5cd04bcaa1b6bb0)): ?>
+<?php $attributes = $__attributesOriginal837232b594bf97def5cd04bcaa1b6bb0; ?>
+<?php unset($__attributesOriginal837232b594bf97def5cd04bcaa1b6bb0); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal837232b594bf97def5cd04bcaa1b6bb0)): ?>
+<?php $component = $__componentOriginal837232b594bf97def5cd04bcaa1b6bb0; ?>
+<?php unset($__componentOriginal837232b594bf97def5cd04bcaa1b6bb0); ?>
+<?php endif; ?>
 
             
             <?php if (isset($component)) { $__componentOriginalacac6a48a34186ea0abd369a00e5e2d4 = $component; } ?>
@@ -654,13 +711,7 @@
 <?php unset($__componentOriginal1b6467b07b302021134396bbd98e74a9); ?>
 <?php endif; ?>
 
-            <div class="flex items-center gap-2 ml-2">
-                <div class="w-7 h-7 rounded-lg flex items-center justify-center"
-                     style="background-color: #5C271A">
-                    <span class="text-white font-bold text-xs">CN</span>
-                </div>
-                <span class="font-semibold text-sm">Cacao Nativa</span>
-            </div>
+            
 
             <?php if (isset($component)) { $__componentOriginal4a4f7aa062a095c651c2f80bb685a42a = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal4a4f7aa062a095c651c2f80bb685a42a = $attributes; } ?>

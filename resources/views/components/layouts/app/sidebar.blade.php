@@ -10,7 +10,7 @@
             <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
             {{-- Logo --}}
-            <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-2 py-1" wire:navigate>
+            {{-- <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-2 py-1" wire:navigate>
                 <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
                      style="background-color: #5C271A">
                     <span class="text-white font-bold text-sm">CN</span>
@@ -19,7 +19,11 @@
                     <p class="font-semibold text-sm leading-tight">Cacao Nativa</p>
                     <p class="text-xs text-zinc-500 dark:text-zinc-400">E-Learning</p>
                 </div>
-            </a>
+            </a> --}}
+            <flux:sidebar.header>
+                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
+                <flux:sidebar.collapse class="lg:hidden" />
+            </flux:sidebar.header>
 
             {{-- Navegación principal --}}
             <flux:navlist variant="outline">
@@ -158,13 +162,13 @@
         <flux:header class="lg:hidden border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
-            <div class="flex items-center gap-2 ml-2">
+            {{-- <div class="flex items-center gap-2 ml-2">
                 <div class="w-7 h-7 rounded-lg flex items-center justify-center"
                      style="background-color: #5C271A">
                     <span class="text-white font-bold text-xs">CN</span>
                 </div>
                 <span class="font-semibold text-sm">Cacao Nativa</span>
-            </div>
+            </div> --}}
 
             <flux:spacer />
 
