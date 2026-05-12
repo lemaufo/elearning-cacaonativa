@@ -125,7 +125,7 @@
                 ['icon' => 'ti-certificate',    'bg' => '#E8EFF5', 'color' => '#18405D', 'title' => 'Certificados PDF',          'desc' => 'Emisión automática al aprobar, con sello institucional y validación por UUID.'],
                 ['icon' => 'ti-chart-bar',      'bg' => '#F5EDE8', 'color' => '#7F5E43', 'title' => 'Dashboard ejecutivo',       'desc' => 'KPIs en tiempo real, seguimiento por colaborador y exportación de reportes.'],
             ] as $feat)
-                <div class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5">
+                <div class="bg-white z-10 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-5">
                     <div class="w-9 h-9 rounded-lg flex items-center justify-center mb-4"
                          style="background:{{ $feat['bg'] }}">
                         <i class="ti {{ $feat['icon'] }} text-lg" style="color:{{ $feat['color'] }}" aria-hidden="true"></i>
@@ -154,7 +154,7 @@
                         <div class="w-10 h-10 rounded-full mx-auto mb-3 flex items-center justify-center text-sm font-medium border
                             {{ $step['active']
                                 ? 'text-white border-transparent'
-                                : 'text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-900' }}"
+                                : 'text-zinc-500 dark:text-zinc-400 border-zinc-200 dark:border-zinc-700 bg-white z-100 dark:bg-zinc-900' }}"
                              style="{{ $step['active'] ? 'background:#5C271A' : '' }}">
                             {{ $step['num'] }}
                         </div>
@@ -201,13 +201,13 @@
             <p class="text-sm mb-6" style="color:#7FB8A8">Accede a la plataforma y comienza hoy mismo.</p>
             @auth
                 <a href="{{ url('/dashboard') }}"
-                   class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-colors"
+                   class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-colors z-50"
                    style="background:#FAF7F2; color:#1D483B">
                     Ir a la plataforma <i class="ti ti-arrow-right" aria-hidden="true"></i>
                 </a>
             @else
                 <a href="{{ route('login') }}"
-                   class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-colors"
+                   class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-medium transition-colors z-50"
                    style="background:#FAF7F2; color:#1D483B">
                     Iniciar sesión <i class="ti ti-arrow-right" aria-hidden="true"></i>
                 </a>
@@ -216,8 +216,8 @@
     </section>
 
     {{-- Footer --}}
-    <footer class="border-t border-zinc-200 dark:border-zinc-800">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between flex-wrap gap-3">
+    <footer class="border-t border-zinc-200 dark:border-zinc-800 bg-white z-100 dark:bg-zinc-900">
+        <div class="bg-white max-w-6xl mx-auto px-4 sm:px-6 py-5 flex items-center justify-between flex-wrap gap-3">
             <p class="text-xs text-zinc-400 dark:text-zinc-500">© {{ date('Y') }} Cacao Nativa · Todos los derechos reservados</p>
             <p class="text-xs text-zinc-400 dark:text-zinc-500">
                 Desarrollado por <span class="font-medium" style="color:#5C271A">Teknologix</span>
