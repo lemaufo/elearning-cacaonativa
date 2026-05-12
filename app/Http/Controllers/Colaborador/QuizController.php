@@ -135,12 +135,21 @@ class QuizController extends Controller
             ->with(['course', 'user'])
             ->firstOrFail();
 
-        $logoBase64 = base64_encode(
-            file_get_contents(public_path('images/Logo1.png'))
-        );
+        $fondoBase64       = base64_encode(file_get_contents(public_path('images/fondo.png')));
+        $selloBase64       = base64_encode(file_get_contents(public_path('images/sello.png')));
+        $certificadoBase64 = base64_encode(file_get_contents(public_path('images/Logo Certificado.png')));
+
+        $fondoMime       = 'image/png';
+        $selloMime       = 'image/png';
+        $certificadoMime = 'image/png';
 
         $pdf = app('dompdf.wrapper');
-        $pdf->loadView('pdf.certificate', compact('certificate', 'logoBase64'));
+        $pdf->loadView('pdf.certificate', compact(
+            'certificate',
+            'fondoBase64', 'fondoMime',
+            'selloBase64', 'selloMime',
+            'certificadoBase64', 'certificadoMime'
+        ));
         $pdf->setPaper('letter', 'landscape');
 
         return $pdf->download(

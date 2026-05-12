@@ -151,7 +151,7 @@
 
 <body>
 
-    @php
+    <?php
         // $texturePath = 'file://' . public_path('images/fondo.png');
         // $selloPath = 'file://' . public_path('images/sello.png');
         // $certificadoPath = 'file://' . public_path('images/Logo Certificado.png');
@@ -179,36 +179,36 @@
         $fechaTexto = $meses[$issuedAt->month] . ' ' . $issuedAt->year;
         $userName = mb_strtoupper($certificate->user->name);
         $courseName = $certificate->course->title;
-    @endphp
+    ?>
 
-    {{-- Fondo --}}
+    
     <div style="position: fixed; top: 0; left: 0; width: 279.4mm; height: 215.9mm; z-index: 0;">
-        <img src="data:{{ $fondoMime }};base64,{{ $fondoBase64 }}" alt="" style="width: 279.4mm; height: 215.9mm; display: block;">
+        <img src="data:<?php echo e($fondoMime); ?>;base64,<?php echo e($fondoBase64); ?>" alt="" style="width: 279.4mm; height: 215.9mm; display: block;">
     </div>
 
-    {{-- Logo superior: Certificado.png centrado --}}
+    
     <div class="logo-top">
-        <img src="data:{{ $certificadoMime }};base64,{{ $certificadoBase64 }}" alt="Cacao Nativa" style="width:70mm; height:auto;">
+        <img src="data:<?php echo e($certificadoMime); ?>;base64,<?php echo e($certificadoBase64); ?>" alt="Cacao Nativa" style="width:70mm; height:auto;">
     </div>
 
-    {{-- Contenido --}}
+    
     <div class="cert-body">
         <div class="title">RECONOCIMIENTO</div>
         <div class="otorgado">Otorgado a</div>
-        <div class="recipient">{{ $userName }}</div>
+        <div class="recipient"><?php echo e($userName); ?></div>
         <div class="description">
             Como Colaborador del mes,<br>
             por su destacado desempeño y compromiso.
         </div>
-        <div class="date">{{ $fechaTexto }}</div>
+        <div class="date"><?php echo e($fechaTexto); ?></div>
     </div>
 
-    {{-- Sello (ajustado para que no tape el texto) --}}
+    
     <div style="position:fixed; top:108mm; left:15mm; z-index: 10;">
-        <img src="data:{{ $selloMime }};base64,{{ $selloBase64 }}" alt="Sello oficial" style="width: 60mm; height:auto;">
+        <img src="data:<?php echo e($selloMime); ?>;base64,<?php echo e($selloBase64); ?>" alt="Sello oficial" style="width: 60mm; height:auto;">
     </div>
 
-    {{-- Firmas --}}
+    
     <div class="signatures">
         <table class="sig-table" border="0">
             <tr>
@@ -226,13 +226,14 @@
         </table>
     </div>
 
-    {{-- UUID --}}
+    
     <div class="py-5" style="position: fixed; bottom: 5mm; left: 0; width: 279.4mm; text-align: center; z-index: 20;">
         <p style="font-size: 7pt; color: #7F5E43; font-family: 'Courier New', monospace; letter-spacing: 1px;">
-            ID de verificación: {{ $certificate->uuid }}
+            ID de verificación: <?php echo e($certificate->uuid); ?>
+
         </p>
     </div>
 
 </body>
 
-</html>
+</html><?php /**PATH C:\Users\venta\Documents\DESARROLLOS\elerarning-cacaonativa\resources\views/pdf/certificate.blade.php ENDPATH**/ ?>
