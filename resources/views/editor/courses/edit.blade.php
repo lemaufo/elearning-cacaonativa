@@ -125,23 +125,27 @@
                                 </div>
                             </div>
 
-                            <div x-show="lesson.type !== 'text'">
+                            <template x-if="lesson.type !== 'text'">
+                                <div>
                                 <label class="block text-xs font-medium mb-1">URL del contenido</label>
                                 <input type="url"
                                        :name="'lessons[' + index + '][content_url]'"
                                        x-model="lesson.content_url"
                                        class="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-500"
                                        placeholder="https://..." />
-                            </div>
+                                </div>
+                            </template>
 
-                            <div x-show="lesson.type === 'text'">
+                            <template x-if="lesson.type === 'text'">
+                                <div>
                                 <label class="block text-xs font-medium mb-1">Contenido</label>
                                 <textarea :name="'lessons[' + index + '][content_text]'"
                                           x-model="lesson.content_text"
                                           rows="3"
                                           class="w-full px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-500"
                                           placeholder="Escribe el contenido..."></textarea>
-                            </div>
+                                </div>
+                            </template>
                         </div>
                     </template>
 
