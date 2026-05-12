@@ -124,9 +124,11 @@
                                                 // Convertir YouTube watch a embed
                                                 if (str_contains($url, 'youtube.com/watch')) {
                                                     parse_str(parse_url($url, PHP_URL_QUERY), $params);
-                                                    $url = 'https://www.youtube.com/embed/' . ($params['v'] ?? '');
+                                                    $embedUrl = 'https://www.youtube.com/embed/' . ($params['v'] ?? '') 
+                                                        . '?rel=0&enablejsapi=1&origin=https://capacitaciones.cacaonativa.com';
                                                 } elseif (str_contains($url, 'youtu.be/')) {
-                                                    $url = 'https://www.youtube.com/embed/' . basename(parse_url($url, PHP_URL_PATH));
+                                                    $embedUrl = 'https://www.youtube.com/embed/' . basename(parse_url($url, PHP_URL_PATH)) 
+                                                        . '?rel=0&enablejsapi=1&origin=https://capacitaciones.cacaonativa.com';
                                                 }
                                                 // Convertir Google Drive a embed
                                                 if (str_contains($url, 'drive.google.com')) {
@@ -136,10 +138,11 @@
                                                     }
                                                 }
                                             @endphp
-                                            <iframe src="{{ $url }}"
+                                            <iframe src="{{ $embedUrl }}"
                                                     class="w-full h-full"
                                                     allowfullscreen
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                    referrerpolicy="strict-origin-when-cross-origin"
                                                     frameborder="0">
                                             </iframe>
                                         </div>
