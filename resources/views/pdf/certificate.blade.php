@@ -176,7 +176,7 @@
             : \Carbon\Carbon::parse($certificate->issued_at);
 
         // Definición de las variables que causaban el error
-        $fechaTexto = $meses[$issuedAt->month] . ' ' . $issuedAt->year;
+        $fechaTexto = $issuedAt->day . ' de ' . $meses[$issuedAt->month] . ' de ' . $issuedAt->year;
         $userName = mb_strtoupper($certificate->user->name);
         $courseName = $certificate->course->title;
     @endphp
@@ -197,8 +197,11 @@
         <div class="otorgado">Otorgado a</div>
         <div class="recipient">{{ $userName }}</div>
         <div class="description">
-            Como Colaborador del mes,<br>
-            por su destacado desempeño y compromiso.
+            Por haber completado satisfactoriamente el curso:<br>
+            <strong style="font-size: 17pt; color: #63422E; font-style: normal;">{{ $courseName }}</strong>
+        </div>
+        <div style="font-size: 13pt; color: #2D1A12; font-style: italic; margin-bottom: 4mm;">
+            Calificación obtenida: <strong style="color: #63422E; font-style: normal;">{{ $certificate->score }}%</strong>
         </div>
         <div class="date">{{ $fechaTexto }}</div>
     </div>
@@ -227,8 +230,8 @@
     </div>
 
     {{-- UUID --}}
-    <div class="py-5" style="position: fixed; bottom: 5mm; left: 0; width: 279.4mm; text-align: center; z-index: 20;">
-        <p style="font-size: 7pt; color: #7F5E43; font-family: 'Courier New', monospace; letter-spacing: 1px;">
+    <div style="position: fixed; bottom: 4mm; left: 0; width: 279.4mm; text-align: center; z-index: 20;">
+        <p style="font-size: 6.5pt; color: #7F5E43; font-family: 'Courier New', monospace; letter-spacing: 0.8px;">
             ID de verificación: {{ $certificate->uuid }}
         </p>
     </div>
