@@ -206,10 +206,17 @@
         <div class="date">{{ $fechaTexto }}</div>
     </div>
 
-    {{-- Sello (ajustado para que no tape el texto) --}}
-    <div style="position:fixed; top:108mm; left:15mm; z-index: 10;">
-        <img src="data:{{ $selloMime }};base64,{{ $selloBase64 }}" alt="Sello oficial" style="width: 60mm; height:auto;">
+    {{-- UUID --}}
+    <div style="position: fixed; bottom: 20mm; left: 0; width: 279.4mm; text-align: center; z-index: 20;">
+        <p style="font-size: 6.5pt; color: #7F5E43; font-family: 'Courier New', monospace; letter-spacing: 0.8px;">
+            ID de verificación: {{ $certificate->uuid }}
+        </p>
     </div>
+
+    {{-- Sello (ajustado para que no tape el texto) --}}
+    {{-- <div style="position:fixed; top:108mm; left:15mm; z-index: 10;">
+        <img src="data:{{ $selloMime }};base64,{{ $selloBase64 }}" alt="Sello oficial" style="width: 60mm; height:auto;">
+    </div> --}}
 
     {{-- Firmas --}}
     <div class="signatures">
@@ -228,14 +235,6 @@
             </tr>
         </table>
     </div>
-
-    {{-- UUID --}}
-    <div style="position: fixed; bottom: 4mm; left: 0; width: 279.4mm; text-align: center; z-index: 20;">
-        <p style="font-size: 6.5pt; color: #7F5E43; font-family: 'Courier New', monospace; letter-spacing: 0.8px;">
-            ID de verificación: {{ $certificate->uuid }}
-        </p>
-    </div>
-
 </body>
 
 </html>

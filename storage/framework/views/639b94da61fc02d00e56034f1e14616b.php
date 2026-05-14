@@ -207,9 +207,15 @@
     </div>
 
     
-    <div style="position:fixed; top:108mm; left:15mm; z-index: 10;">
-        <img src="data:<?php echo e($selloMime); ?>;base64,<?php echo e($selloBase64); ?>" alt="Sello oficial" style="width: 60mm; height:auto;">
+    <div style="position: fixed; bottom: 20mm; left: 0; width: 279.4mm; text-align: center; z-index: 20;">
+        <p style="font-size: 6.5pt; color: #7F5E43; font-family: 'Courier New', monospace; letter-spacing: 0.8px;">
+            ID de verificación: <?php echo e($certificate->uuid); ?>
+
+        </p>
     </div>
+
+    
+    
 
     
     <div class="signatures">
@@ -228,15 +234,6 @@
             </tr>
         </table>
     </div>
-
-    
-    <div style="position: fixed; bottom: 4mm; left: 0; width: 279.4mm; text-align: center; z-index: 20;">
-        <p style="font-size: 6.5pt; color: #7F5E43; font-family: 'Courier New', monospace; letter-spacing: 0.8px;">
-            ID de verificación: <?php echo e($certificate->uuid); ?>
-
-        </p>
-    </div>
-
 </body>
 
 </html><?php /**PATH C:\Users\venta\Documents\DESARROLLOS\elerarning-cacaonativa\resources\views/pdf/certificate.blade.php ENDPATH**/ ?>
