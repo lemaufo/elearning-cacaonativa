@@ -32,7 +32,7 @@
             </span>
         </div>
 
-        <form method="POST" action="{{ route('editor.courses.update', $course) }}"
+        <form id="form-curso" method="POST" action="{{ route('editor.courses.update', $course) }}"
               enctype="multipart/form-data"
               x-data="lessonManager(@js($lessons))"
               class="space-y-6">
@@ -168,22 +168,23 @@
             </div>
 
             {{-- Acciones --}}
-            <div class="flex items-center justify-between">
-                <div>
-                    @if($course->status === 'draft')
-                        <form method="POST" action="{{ route('editor.courses.submit', $course) }}">
-                            @csrf
-                            @method('PATCH')
-                            <button type="submit"
-                                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
-                                Enviar a revisión
-                            </button>
-                        </form>
-                    @endif
-                </div>
+            <div class="flex items-center justify-end">
                 <flux:button type="submit" form="form-curso" variant="primary">Guardar cambios</flux:button>
             </div>
         </form>
+
+        @if($course->status === 'draft')
+        <div class="flex justify-start">
+            <form method="POST" action="{{ route('editor.courses.submit', $course) }}">
+                @csrf
+                @method('PATCH')
+                <button type="submit"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+                    Enviar a revisión
+                </button>
+            </form>
+        </div>
+        @endif
     </div>
 
     <script>
