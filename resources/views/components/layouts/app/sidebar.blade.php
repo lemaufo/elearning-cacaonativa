@@ -84,6 +84,14 @@
                         </flux:navlist.item>
 
                         <flux:navlist.item
+                            icon="building-office"
+                            :href="route('admin.areas.index')"
+                            :current="request()->routeIs('admin.areas.*')"
+                            wire:navigate>
+                            Áreas
+                        </flux:navlist.item>
+
+                        <flux:navlist.item
                             icon="academic-cap"
                             :href="route('admin.courses.index')"
                             :current="request()->routeIs('admin.courses.*')"

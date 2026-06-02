@@ -51,7 +51,18 @@
                               class="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-500">{{ old('description', $course->description) }}</textarea>
                 </div>
 
-                <flux:input name="area" label="Área responsable" value="{{ old('area', $course->area) }}" />
+                <div>
+                    <label class="block text-sm font-medium mb-1.5">Área responsable</label>
+                    <select name="area"
+                            class="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-500">
+                        <option value="">Selecciona un área</option>
+                        @foreach(\App\Models\Area::orderBy('name')->where('active', true)->get() as $area)
+                            <option value="{{ $area->name }}" {{ old('area', $course->area) === $area->name ? 'selected' : '' }}>
+                                {{ $area->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
 
                 {{-- Portada del curso --}}
                 <div>
@@ -160,13 +171,14 @@
             <div class="flex items-center justify-between">
                 <div class="flex gap-3">
                     @if($course->status === 'draft')
-                        <form method="POST" action="{{ route('editor.courses.submit', $course) }}">
+                        <form method="POST" action="{{ route('editor.courses.submit', $course) }}" id="form-submit-review">
                             @csrf
                             @method('PATCH')
-                            <flux:button type="submit" variant="ghost">
-                                Enviar a revisión
-                            </flux:button>
                         </form>
+                        <flux:button type="button" variant="ghost"
+                            onclick="document.getElementById('form-submit-review').submit()">
+                            Enviar a revisión
+                        </flux:button>
                     @endif
                 </div>
                 <flux:button type="submit" variant="primary">Guardar cambios</flux:button>

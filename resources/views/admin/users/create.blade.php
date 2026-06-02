@@ -47,9 +47,18 @@
                 </div>
             </div>
 
-            <flux:input name="area" label="Área"
-                value="{{ old('area') }}"
-                placeholder="Ej. Calidad, Operaciones, RR.HH." />
+            <div>
+                <label class="block text-sm font-medium mb-1.5">Área</label>
+                <select name="area"
+                        class="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-500">
+                    <option value="">Sin área asignada</option>
+                    @foreach(\App\Models\Area::orderBy('name')->where('active', true)->get() as $area)
+                        <option value="{{ $area->name }}" {{ old('area', $user->area ?? '') === $area->name ? 'selected' : '' }}>
+                            {{ $area->name }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
 
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <flux:input name="access_starts_at" label="Acceso desde"

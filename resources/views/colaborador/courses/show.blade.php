@@ -118,33 +118,45 @@
                             @if($lesson->content_url || $lesson->content_text)
                                 <div x-show="open" x-transition class="mt-4 pl-12">
                                     @if($lesson->type === 'video' && $lesson->content_url)
-                                        <div class="aspect-video rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                                        <div class="rounded-xl overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                                             @php
                                                 $url = $lesson->content_url;
-                                                // Convertir YouTube watch a embed
+                                                $embedUrl = null;
                                                 if (str_contains($url, 'youtube.com/watch')) {
                                                     parse_str(parse_url($url, PHP_URL_QUERY), $params);
-                                                    $embedUrl = 'https://www.youtube.com/embed/' . ($params['v'] ?? '') 
+                                                    $embedUrl = 'https://www.youtube.com/embed/' . ($params['v'] ?? '')
                                                         . '?rel=0&enablejsapi=1&origin=https://capacitaciones.cacaonativa.com';
                                                 } elseif (str_contains($url, 'youtu.be/')) {
-                                                    $embedUrl = 'https://www.youtube.com/embed/' . basename(parse_url($url, PHP_URL_PATH)) 
+                                                    $embedUrl = 'https://www.youtube.com/embed/' . basename(parse_url($url, PHP_URL_PATH))
                                                         . '?rel=0&enablejsapi=1&origin=https://capacitaciones.cacaonativa.com';
-                                                }
-                                                // Convertir Google Drive a embed
-                                                if (str_contains($url, 'drive.google.com')) {
+                                                } elseif (str_contains($url, 'drive.google.com')) {
                                                     preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $url, $matches);
                                                     if (!empty($matches[1])) {
-                                                        $url = 'https://drive.google.com/file/d/' . $matches[1] . '/preview';
+                                                        $embedUrl = 'https://drive.google.com/file/d/' . $matches[1] . '/preview';
                                                     }
                                                 }
                                             @endphp
-                                            <iframe src="{{ $embedUrl }}"
-                                                    class="w-full h-full"
-                                                    allowfullscreen
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                    referrerpolicy="strict-origin-when-cross-origin"
-                                                    frameborder="0">
-                                            </iframe>
+
+                                            @if($embedUrl)
+                                                <div class="aspect-video">
+                                                    <iframe src="{{ $embedUrl }}"
+                                                            class="w-full h-full"
+                                                            allowfullscreen
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                                            referrerpolicy="strict-origin-when-cross-origin"
+                                                            frameborder="0">
+                                                    </iframe>
+                                                </div>
+                                            @endif
+
+                                            <div class="px-4 py-3 flex items-center justify-between border-t border-zinc-200 dark:border-zinc-700">
+                                                <p class="text-xs text-zinc-500 dark:text-zinc-400">Si el video no carga, ábrelo directamente</p>
+                                                <a href="{{ $url }}" target="_blank"
+                                                class="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-white"
+                                                style="background-color: #5C271A">
+                                                    Abrir video
+                                                </a>
+                                            </div>
                                         </div>
                                     @elseif($lesson->type === 'pdf' && $lesson->content_url)
                                         <a href="{{ $lesson->content_url }}"

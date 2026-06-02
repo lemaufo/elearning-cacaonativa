@@ -16,37 +16,40 @@ class CourseController extends Controller
     {
         $user = Auth::user();
 
-        $courses = Course::where('status', 'published')
+        $query = Course::where('status', 'published')
             ->with(['enrollments' => function ($q) use ($user) {
                 $q->where('user_id', $user->id);
             }, 'lessons'])
-            ->withCount('lessons')
-            ->get()
-            ->map(function ($course) use ($user) {
-                $enrollment = $course->enrollments->first();
-                $completedLessons = 0;
+            ->withCount('lessons');
 
-                if ($enrollment && $course->lessons_count > 0) {
-                    // Si está aprobado, siempre 100%
-                    if ($enrollment->status === 'approved') {
-                        $course->progress_percent = 100;
-                        $course->enrollment = $enrollment;
-                        return $course;
-                    }
+        // Si el colaborador tiene área asignada, filtrar por área
+        if ($user->area && $user->hasRole('colaborador')) {
+            $query->where('area', $user->area);
+        }
 
-                    $completedLessons = LessonProgress::whereIn('lesson_id', $course->lessons->pluck('id'))
-                        ->where('user_id', $user->id)
-                        ->where('completed', true)
-                        ->count();
+        $courses = $query->get()->map(function ($course) use ($user) {
+            $enrollment = $course->enrollments->first();
+            $completedLessons = 0;
+
+            if ($enrollment && $course->lessons_count > 0) {
+                if ($enrollment->status === 'approved') {
+                    $course->progress_percent = 100;
+                    $course->enrollment = $enrollment;
+                    return $course;
                 }
+                $completedLessons = LessonProgress::whereIn('lesson_id', $course->lessons->pluck('id'))
+                    ->where('user_id', $user->id)
+                    ->where('completed', true)
+                    ->count();
+            }
 
-                $course->enrollment       = $enrollment;
-                $course->progress_percent = $course->lessons_count > 0
-                    ? round(($completedLessons / $course->lessons_count) * 100)
-                    : 0;
+            $course->enrollment = $enrollment;
+            $course->progress_percent = $course->lessons_count > 0
+                ? round(($completedLessons / $course->lessons_count) * 100)
+                : 0;
 
-                return $course;
-            });
+            return $course;
+        });
 
         return view('colaborador.courses.index', compact('courses'));
     }

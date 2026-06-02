@@ -70,6 +70,12 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->name('certificates.verify');
     Route::post('certificates/verify', [\App\Http\Controllers\Admin\CertificateController::class, 'check'])
         ->name('certificates.check');
+    Route::get('areas', [\App\Http\Controllers\Admin\AreaController::class, 'index'])
+        ->name('areas.index');
+    Route::post('areas', [\App\Http\Controllers\Admin\AreaController::class, 'store'])
+        ->name('areas.store');
+    Route::delete('areas/{area}', [\App\Http\Controllers\Admin\AreaController::class, 'destroy'])
+        ->name('areas.destroy');
 });
 
 require __DIR__.'/auth.php';
