@@ -169,16 +169,17 @@
 
             {{-- Acciones --}}
             <div class="flex items-center justify-between">
-                <div class="flex gap-3">
+                <div>
                     @if($course->status === 'draft')
-                        <form method="POST" action="{{ route('editor.courses.submit', $course) }}" id="form-submit-review">
+                        <a href="{{ route('editor.courses.submit', $course) }}"
+                        onclick="event.preventDefault(); document.getElementById('form-revision').submit();"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors cursor-pointer">
+                            Enviar a revisión
+                        </a>
+                        <form id="form-revision" method="POST" action="{{ route('editor.courses.submit', $course) }}" style="display:none">
                             @csrf
                             @method('PATCH')
                         </form>
-                        <flux:button type="button" variant="ghost"
-                            onclick="document.getElementById('form-submit-review').submit()">
-                            Enviar a revisión
-                        </flux:button>
                     @endif
                 </div>
                 <flux:button type="submit" variant="primary">Guardar cambios</flux:button>

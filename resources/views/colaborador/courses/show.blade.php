@@ -138,8 +138,9 @@
                                             @endphp
 
                                             @if($embedUrl)
-                                                <div class="aspect-video">
+                                                <div class="aspect-video w-full" style="min-height: 200px;">
                                                     <iframe src="{{ $embedUrl }}"
+                                                            style="width:100%; height:100%;"
                                                             class="w-full h-full"
                                                             allowfullscreen
                                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
