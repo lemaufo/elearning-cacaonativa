@@ -171,18 +171,17 @@
             <div class="flex items-center justify-between">
                 <div>
                     @if($course->status === 'draft')
-                        <a href="{{ route('editor.courses.submit', $course) }}"
-                        onclick="event.preventDefault(); document.getElementById('form-revision').submit();"
-                        class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors cursor-pointer">
-                            Enviar a revisión
-                        </a>
-                        <form id="form-revision" method="POST" action="{{ route('editor.courses.submit', $course) }}" style="display:none">
+                        <form method="POST" action="{{ route('editor.courses.submit', $course) }}">
                             @csrf
                             @method('PATCH')
+                            <button type="submit"
+                                    class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors">
+                                Enviar a revisión
+                            </button>
                         </form>
                     @endif
                 </div>
-                <flux:button type="submit" variant="primary">Guardar cambios</flux:button>
+                <flux:button type="submit" form="form-curso" variant="primary">Guardar cambios</flux:button>
             </div>
         </form>
     </div>
