@@ -138,14 +138,12 @@
                                             @endphp
 
                                             @if($embedUrl)
-                                                <div class="aspect-video w-full" style="min-height: 200px;">
+                                                <div style="position: relative; width: 100%; padding-bottom: 56.25%; height: 0; overflow: hidden;">
                                                     <iframe src="{{ $embedUrl }}"
-                                                            style="width:100%; height:100%;"
-                                                            class="w-full h-full"
+                                                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
                                                             allowfullscreen
                                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                                            referrerpolicy="strict-origin-when-cross-origin"
-                                                            frameborder="0">
+                                                            referrerpolicy="strict-origin-when-cross-origin">
                                                     </iframe>
                                                 </div>
                                             @endif
