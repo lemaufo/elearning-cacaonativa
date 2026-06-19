@@ -168,16 +168,25 @@
                                     @elseif($lesson->type === 'image' && $lesson->content_url)
                                         @php
                                             $imgUrl = $lesson->content_url;
-                                            if (str_contains($imgUrl, 'drive.google.com')) {
+                                            $isDrive = str_contains($imgUrl, 'drive.google.com');
+                                            if ($isDrive) {
                                                 preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $imgUrl, $imgMatches);
-                                                if (!empty($imgMatches[1])) {
-                                                    $imgUrl = 'https://drive.google.com/uc?export=view&id=' . $imgMatches[1];
-                                                }
+                                                $driveId = $imgMatches[1] ?? null;
                                             }
                                         @endphp
-                                        <img src="{{ $imgUrl }}"
-                                            alt="{{ $lesson->title }}"
-                                            class="rounded-xl max-w-full w-full">
+
+                                        @if($isDrive && !empty($driveId))
+                                            <div style="position: relative; width: 100%; padding-bottom: 75%; height: 0; overflow: hidden; border-radius: 12px;">
+                                                <iframe src="https://drive.google.com/file/d/{{ $driveId }}/preview"
+                                                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                                                        allowfullscreen>
+                                                </iframe>
+                                            </div>
+                                        @else
+                                            <img src="{{ $imgUrl }}"
+                                                alt="{{ $lesson->title }}"
+                                                class="rounded-xl max-w-full w-full">
+                                        @endif
                                     @elseif($lesson->content_text)
                                         <div class="prose dark:prose-invert text-sm max-w-none">
                                             {!! nl2br(e($lesson->content_text)) !!}
