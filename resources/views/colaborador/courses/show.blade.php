@@ -166,9 +166,18 @@
                                             Abrir PDF
                                         </a>
                                     @elseif($lesson->type === 'image' && $lesson->content_url)
-                                        <img src="{{ $lesson->content_url }}"
-                                             alt="{{ $lesson->title }}"
-                                             class="rounded-xl max-w-full">
+                                        @php
+                                            $imgUrl = $lesson->content_url;
+                                            if (str_contains($imgUrl, 'drive.google.com')) {
+                                                preg_match('/\/d\/([a-zA-Z0-9_-]+)/', $imgUrl, $imgMatches);
+                                                if (!empty($imgMatches[1])) {
+                                                    $imgUrl = 'https://drive.google.com/uc?export=view&id=' . $imgMatches[1];
+                                                }
+                                            }
+                                        @endphp
+                                        <img src="{{ $imgUrl }}"
+                                            alt="{{ $lesson->title }}"
+                                            class="rounded-xl max-w-full w-full">
                                     @elseif($lesson->content_text)
                                         <div class="prose dark:prose-invert text-sm max-w-none">
                                             {!! nl2br(e($lesson->content_text)) !!}
