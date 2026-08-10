@@ -23,7 +23,8 @@ class UserController extends Controller
     {
         abort_if(!Auth::user()->hasRole('admin'), 403);
         $roles = Role::all();
-        return view('admin.users.create', compact('roles'));
+        $areas = \App\Models\Area::orderBy('name')->where('active', true)->get();
+        return view('admin.users.create', compact('roles', 'areas'));
     }
 
     public function store(Request $request)
@@ -35,7 +36,8 @@ class UserController extends Controller
             'email'            => 'required|email|unique:users,email',
             'password'         => 'required|min:8',
             'role'             => 'required|exists:roles,name',
-            'area'             => 'nullable|string|max:100',
+            'areas'            => 'nullable|array',
+            'areas.*'          => 'exists:areas,id',
             'access_starts_at' => 'nullable|date',
             'access_ends_at'   => 'nullable|date|after_or_equal:access_starts_at',
         ]);
@@ -44,7 +46,6 @@ class UserController extends Controller
             'name'                 => $validated['name'],
             'email'                => $validated['email'],
             'password'             => Hash::make($validated['password']),
-            'area'                 => $validated['area'] ?? null,
             'active'               => true,
             'must_change_password' => true,
             'access_starts_at'     => $validated['access_starts_at'] ?? null,
@@ -52,6 +53,7 @@ class UserController extends Controller
         ]);
 
         $user->assignRole($validated['role']);
+        $user->areas()->sync($request->areas ?? []);
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Usuario creado correctamente.');
@@ -61,7 +63,8 @@ class UserController extends Controller
     {
         abort_if(!Auth::user()->hasRole('admin'), 403);
         $roles = Role::all();
-        return view('admin.users.edit', compact('user', 'roles'));
+        $areas = \App\Models\Area::orderBy('name')->where('active', true)->get();
+        return view('admin.users.edit', compact('user', 'roles', 'areas'));
     }
 
     public function update(Request $request, User $user)
@@ -72,7 +75,8 @@ class UserController extends Controller
             'name'             => 'required|string|max:255',
             'email'            => 'required|email|unique:users,email,' . $user->id,
             'role'             => 'required|exists:roles,name',
-            'area'             => 'nullable|string|max:100',
+            'areas'            => 'nullable|array',
+            'areas.*'          => 'exists:areas,id',
             'active'           => 'boolean',
             'access_starts_at' => 'nullable|date',
             'access_ends_at'   => 'nullable|date|after_or_equal:access_starts_at',
@@ -81,13 +85,13 @@ class UserController extends Controller
         $user->update([
             'name'             => $validated['name'],
             'email'            => $validated['email'],
-            'area'             => $validated['area'] ?? null,
             'active'           => $request->boolean('active'),
             'access_starts_at' => $validated['access_starts_at'] ?? null,
             'access_ends_at'   => $validated['access_ends_at'] ?? null,
         ]);
 
         $user->syncRoles([$validated['role']]);
+        $user->areas()->sync($request->areas ?? []);
 
         if ($request->filled('password')) {
             $request->validate(['password' => 'min:8']);

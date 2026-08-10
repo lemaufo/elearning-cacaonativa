@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
@@ -57,5 +58,10 @@ class User extends Authenticatable
     public function enrollments()
     {
         return $this->hasMany(\App\Models\Enrollment::class);
+    }
+
+    public function areas(): BelongsToMany
+    {
+        return $this->belongsToMany(Area::class);
     }
 }

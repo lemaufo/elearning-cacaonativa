@@ -43,16 +43,23 @@
                 </div>
 
                 <div>
-                    <label class="block text-sm font-medium mb-1.5">Área</label>
-                    <select name="area"
-                            class="w-full px-3 py-2 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-500">
-                        <option value="">Sin área asignada</option>
-                        @foreach(\App\Models\Area::orderBy('name')->where('active', true)->get() as $area)
-                            <option value="{{ $area->name }}" {{ old('area', $user->area ?? '') === $area->name ? 'selected' : '' }}>
+                    <label class="block text-sm font-medium mb-1.5">Áreas asignadas</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 p-3 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800">
+                        @foreach($areas as $area)
+                            <label class="flex items-center gap-2 text-sm cursor-pointer">
+                                <input type="checkbox"
+                                    name="areas[]"
+                                    value="{{ $area->id }}"
+                                    {{ $user->areas->contains($area->id) ? 'checked' : '' }}
+                                    class="w-4 h-4 rounded border-zinc-300 focus:ring-zinc-500"
+                                    style="accent-color: #5C271A">
                                 {{ $area->name }}
-                            </option>
+                            </label>
                         @endforeach
-                    </select>
+                    </div>
+                    @if($areas->isEmpty())
+                        <p class="text-xs text-zinc-400 mt-1">No hay áreas creadas. Créalas en el módulo de Áreas.</p>
+                    @endif
                 </div>
             </div>
 

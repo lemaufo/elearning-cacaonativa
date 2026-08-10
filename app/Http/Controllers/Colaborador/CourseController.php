@@ -22,9 +22,10 @@ class CourseController extends Controller
             }, 'lessons'])
             ->withCount('lessons');
 
-        // Si el colaborador tiene área asignada, filtrar por área
-        if ($user->area && $user->hasRole('colaborador')) {
-            $query->where('area', $user->area);
+        // Si el colaborador tiene áreas asignada, filtrar por áreas
+        if ($user->hasRole('colaborador') && $user->areas()->count() > 0) {
+            $areaNames = $user->areas()->pluck('name')->toArray();
+            $query->whereIn('area', $areaNames);
         }
 
         $courses = $query->get()->map(function ($course) use ($user) {
